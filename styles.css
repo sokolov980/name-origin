@@ -96,3 +96,48 @@ body.dark .results {
 .results p {
   margin: 0.5rem 0;
 }
+
+/* Map Styling */
+.map {
+  height: 300px;
+  margin-top: 1rem;
+  border-radius: 8px;
+  background: #eaeaea;
+  overflow: hidden;
+}
+
+body.dark .map {
+  background: #2a2a2a;
+}
+
+/* Notable People */
+.notable {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: rgba(58, 134, 255, 0.05);
+}
+
+body.dark .notable {
+  background: rgba(58, 134, 255, 0.15);
+}
+
+.notable h3 {
+  margin: 0 0 0.5rem 0;
+  font-weight: 500;
+}
+
+.notable ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notable li {
+  padding: 0.25rem 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+body.dark .notable li {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
