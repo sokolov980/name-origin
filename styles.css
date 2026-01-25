@@ -1,0 +1,98 @@
+:root {
+  --bg-light: #f8f8f8;
+  --text-light: #111;
+  --bg-dark: #1e1e1e;
+  --text-dark: #eee;
+  --accent: #3a86ff;
+}
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
+  background: var(--bg-light);
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-weight: 500;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+#toggle-dark {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+input#search {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 1rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  background: inherit;
+}
+
+.suggestions li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.results {
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(58, 134, 255, 0.05);
+}
+
+body.dark .results {
+  background: rgba(58, 134, 255, 0.15);
+}
+
+.results h2 {
+  margin-top: 0;
+}
+
+.results p {
+  margin: 0.5rem 0;
+}
