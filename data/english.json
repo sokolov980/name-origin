@@ -1,0 +1,14 @@
+{
+  "Smith": {
+    "meaning": "Occupational, metalworker",
+    "origin": "English",
+    "prevalence": ["United Kingdom", "United States", "Canada"],
+    "context": "Smith originally referred to someone who worked with metal, such as a blacksmith."
+  },
+  "Taylor": {
+    "meaning": "Occupational, tailor",
+    "origin": "English",
+    "prevalence": ["United Kingdom", "Australia", "New Zealand"],
+    "context": "Taylor comes from the Old French 'tailleur', meaning 'to cut', referring to someone who made clothes."
+  }
+}
