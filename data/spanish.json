@@ -6,10 +6,18 @@
       "Spain": {
         "Madrid": 4,
         "Catalonia": 3,
-        "Andalusia": 2
+        "Andalusia": 2,
+        "Valencia": 1
       },
-      "Mexico": 6,
-      "Argentina": 2
+      "Mexico": {
+        "Mexico City": 6,
+        "Jalisco": 3,
+        "Nuevo León": 2
+      },
+      "Argentina": {
+        "Buenos Aires": 3,
+        "Cordoba": 2
+      }
     },
     "notable_people": [
       "Antonio García",
@@ -25,15 +33,50 @@
       "Spain": {
         "Madrid": 3,
         "Catalonia": 2,
-        "Andalusia": 2
+        "Andalusia": 2,
+        "Galicia": 1
       },
-      "Mexico": 5,
-      "Colombia": 2
+      "Mexico": {
+        "Mexico City": 5,
+        "Jalisco": 2,
+        "Nuevo León": 1
+      },
+      "Colombia": {
+        "Bogota": 2,
+        "Antioquia": 1
+      }
     },
     "notable_people": [
       "Pedro Martinez",
-      "Laura Martinez"
+      "Laura Martinez",
+      "Carlos Martinez"
     ],
     "context": "Martinez is a common Spanish surname meaning 'son of Martin'."
+  },
+  "Lopez": {
+    "meaning": "Patronymic, son of Lope",
+    "origin": "Spanish",
+    "prevalence": {
+      "Spain": {
+        "Madrid": 2,
+        "Catalonia": 2,
+        "Andalusia": 3,
+        "Valencia": 1
+      },
+      "Mexico": {
+        "Mexico City": 4,
+        "Jalisco": 2,
+        "Nuevo León": 1
+      },
+      "Argentina": {
+        "Buenos Aires": 2,
+        "Cordoba": 1
+      }
+    },
+    "notable_people": [
+      "Sofia Lopez",
+      "Miguel Lopez"
+    ],
+    "context": "Lopez is a common patronymic surname in Spain and Latin America, derived from the given name Lope."
   }
 }
