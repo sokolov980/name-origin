@@ -1,1 +1,35 @@
-
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": { "NAME": "United States" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-125, 24], [-66, 24], [-66, 49], [-125, 49], [-125, 24]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "NAME": "Spain" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-9, 36], [3, 36], [3, 43], [-9, 43], [-9, 36]
+        ]]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": { "NAME": "United Kingdom" },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [[
+          [-8, 50], [2, 50], [2, 59], [-8, 59], [-8, 50]
+        ]]
+      }
+    }
+  ]
+}
