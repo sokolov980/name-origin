@@ -1,0 +1,39 @@
+{
+  "Garcia": {
+    "meaning": "Derived from Basque word 'bear'",
+    "origin": "Spanish",
+    "prevalence": {
+      "Spain": {
+        "Madrid": 4,
+        "Catalonia": 3,
+        "Andalusia": 2
+      },
+      "Mexico": 6,
+      "Argentina": 2
+    },
+    "notable_people": [
+      "Antonio García",
+      "Isabel García",
+      "Juan García"
+    ],
+    "context": "Garcia is one of the most common surnames in Spain and Latin America, originating from the Basque language."
+  },
+  "Martinez": {
+    "meaning": "Patronymic, son of Martin",
+    "origin": "Spanish",
+    "prevalence": {
+      "Spain": {
+        "Madrid": 3,
+        "Catalonia": 2,
+        "Andalusia": 2
+      },
+      "Mexico": 5,
+      "Colombia": 2
+    },
+    "notable_people": [
+      "Pedro Martinez",
+      "Laura Martinez"
+    ],
+    "context": "Martinez is a common Spanish surname meaning 'son of Martin'."
+  }
+}
