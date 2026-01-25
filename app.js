@@ -2,22 +2,29 @@ const searchInput = document.getElementById('search');
 const suggestions = document.getElementById('suggestions');
 const results = document.getElementById('results');
 const toggleDark = document.getElementById('toggle-dark');
+const mapContainer = document.getElementById('map');
+const notableContainer = document.getElementById('notable');
 
-let surnameData = {}; // will hold current dataset
+let surnameData = {};
+let map;
+let geoLayer;
 
-// Load JSON data (currently only English)
-fetch('data/english.json')
-  .then(response => response.json())
-  .then(data => {
-    surnameData = data;
-  });
+// Datasets (add country JSON names here)
+const datasets = ['english', 'spanish']; 
+
+// Load all datasets
+Promise.all(datasets.map(name =>
+  fetch(`data/${name}.json`).then(res => res.json())
+)).then(allData => {
+  surnameData = Object.assign({}, ...allData);
+});
 
 // Dark mode toggle
 toggleDark.addEventListener('click', () => {
   document.body.classList.toggle('dark');
 });
 
-// Autocomplete and search
+// Autocomplete
 searchInput.addEventListener('input', () => {
   const query = searchInput.value.trim().toLowerCase();
   suggestions.innerHTML = '';
@@ -26,7 +33,7 @@ searchInput.addEventListener('input', () => {
 
   const matches = Object.keys(surnameData)
     .filter(name => name.toLowerCase().startsWith(query))
-    .slice(0, 5); // top 5 suggestions
+    .slice(0,5);
 
   matches.forEach(name => {
     const li = document.createElement('li');
@@ -36,30 +43,89 @@ searchInput.addEventListener('input', () => {
   });
 });
 
-// Enter key or select from suggestions
-searchInput.addEventListener('keydown', (e) => {
+// Enter key
+searchInput.addEventListener('keydown', e => {
   if (e.key === 'Enter') {
     const firstSuggestion = suggestions.querySelector('li');
     if (firstSuggestion) selectSurname(firstSuggestion.textContent);
   }
 });
 
-// Display results
+// Show results
 function selectSurname(name) {
   const data = surnameData[name];
   if (!data) {
     results.innerHTML = `<p>No data found for "${name}".</p>`;
+    mapContainer.innerHTML = '';
+    notableContainer.innerHTML = '';
     return;
   }
 
+  // Basic info
   results.innerHTML = `
     <h2>${name}</h2>
     <p><strong>Meaning:</strong> ${data.meaning}</p>
     <p><strong>Origin:</strong> ${data.origin}</p>
-    <p><strong>Prevalence:</strong> ${data.prevalence.join(', ')}</p>
     <p><strong>Context:</strong> ${data.context}</p>
   `;
 
+  // Notable people
+  renderNotable(data.notable_people);
+
+  // Render map
+  renderMap(data.prevalence);
+
   suggestions.innerHTML = '';
   searchInput.value = '';
+}
+
+// Notable people
+function renderNotable(list) {
+  if (!list || list.length === 0) {
+    notableContainer.innerHTML = '';
+    return;
+  }
+  notableContainer.innerHTML = `
+    <h3>Notable People</h3>
+    <ul>${list.map(p => `<li>${p}</li>`).join('')}</ul>
+  `;
+}
+
+// Map rendering
+function renderMap(prevalence) {
+  if (!map) {
+    map = L.map(mapContainer).setView([20, 0], 2);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: 'Map data © OpenStreetMap contributors'
+    }).addTo(map);
+  }
+
+  if (geoLayer) {
+    map.removeLayer(geoLayer);
+  }
+
+  fetch('maps/world.geojson')
+    .then(res => res.json())
+    .then(geojson => {
+      // Color countries by prevalence
+      geoLayer = L.geoJSON(geojson, {
+        style: feature => {
+          const country = feature.properties.NAME || feature.properties.ADMIN;
+          let value = prevalence[country] || 0;
+          return {
+            fillColor: `rgba(58, 134, 255, ${Math.min(0.05 + value/20,0.8)})`,
+            weight: 1,
+            color: '#666',
+            fillOpacity: 0.6
+          };
+        },
+        onEachFeature: (feature, layer) => {
+          const country = feature.properties.NAME || feature.properties.ADMIN;
+          const value = prevalence[country] || 0;
+          layer.bindTooltip(`${country}: ${value}%`);
+        }
+      }).addTo(map);
+
+      map.fitBounds(geoLayer.getBounds());
+    });
 }
