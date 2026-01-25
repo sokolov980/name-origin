@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Name-Origin</title>
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+e2p8dq8s9k+uhS0PZh7PUp0oawtOQY3Ck8jG0ELk=" crossorigin=""/>
 </head>
 <body>
   <div class="container">
@@ -17,9 +21,18 @@
       <input type="text" id="search" placeholder="Enter a surname..." autocomplete="off">
       <ul id="suggestions" class="suggestions"></ul>
       <div id="results" class="results"></div>
+
+      <!-- Regional Prevalence Map -->
+      <div id="map" class="map"></div>
+
+      <!-- Notable People Section -->
+      <div id="notable" class="notable"></div>
     </main>
   </div>
 
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-oXgV+ox5lX8nSldXwGQKsxW1EkU0qE9+hOz+F0vC4v8=" crossorigin=""></script>
   <script src="app.js"></script>
 </body>
 </html>
