@@ -9,10 +9,10 @@ let surnameData = {};
 let map;
 let geoLayer;
 
-// Datasets (add country JSON names here)
+// Datasets
 const datasets = ['english', 'spanish']; 
 
-// Load all datasets
+// Load datasets
 Promise.all(datasets.map(name =>
   fetch(`data/${name}.json`).then(res => res.json())
 )).then(allData => {
@@ -51,7 +51,7 @@ searchInput.addEventListener('keydown', e => {
   }
 });
 
-// Show results
+// Select surname
 function selectSurname(name) {
   const data = surnameData[name];
   if (!data) {
@@ -69,10 +69,7 @@ function selectSurname(name) {
     <p><strong>Context:</strong> ${data.context}</p>
   `;
 
-  // Notable people
   renderNotable(data.notable_people);
-
-  // Render map
   renderMap(data.prevalence);
 
   suggestions.innerHTML = '';
@@ -91,7 +88,7 @@ function renderNotable(list) {
   `;
 }
 
-// Map rendering (supports nested subregions)
+// Map rendering (nested subregions)
 function renderMap(prevalence) {
   if (!map) {
     map = L.map(mapContainer).setView([20, 0], 2);
@@ -113,17 +110,13 @@ function renderMap(prevalence) {
           const country = feature.properties.NAME || feature.properties.ADMIN;
           let value = 0;
 
-          // Handle nested prevalence
           if (prevalence[country]) {
-            if (typeof prevalence[country] === 'number') {
-              value = prevalence[country];
-            } else if (typeof prevalence[country] === 'object') {
-              value = Object.values(prevalence[country]).reduce((a,b)=>a+b,0);
-            }
+            if (typeof prevalence[country] === 'number') value = prevalence[country];
+            else value = Object.values(prevalence[country]).reduce((a,b)=>a+b,0);
           }
 
           return {
-            fillColor: `rgba(58, 134, 255, ${Math.min(0.05 + value/20, 0.8)})`,
+            fillColor: `rgba(58, 134, 255, ${Math.min(0.05 + value/20,0.8)})`,
             weight: 1,
             color: '#666',
             fillOpacity: 0.6
@@ -133,16 +126,11 @@ function renderMap(prevalence) {
           const country = feature.properties.NAME || feature.properties.ADMIN;
           const countryData = prevalence[country];
 
-          if (!countryData) {
-            layer.bindTooltip(`${country}: 0%`);
-          } else if (typeof countryData === 'number') {
-            layer.bindTooltip(`${country}: ${countryData}%`);
-          } else {
-            // Nested subregions
+          if (!countryData) layer.bindTooltip(`${country}: 0%`);
+          else if (typeof countryData === 'number') layer.bindTooltip(`${country}: ${countryData}%`);
+          else {
             let tooltipText = `${country}:\n`;
-            for (const sub in countryData) {
-              tooltipText += `  ${sub}: ${countryData[sub]}%\n`;
-            }
+            for (const sub in countryData) tooltipText += `  ${sub}: ${countryData[sub]}%\n`;
             layer.bindTooltip(tooltipText);
           }
         }
