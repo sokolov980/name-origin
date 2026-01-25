@@ -91,7 +91,7 @@ function renderNotable(list) {
   `;
 }
 
-// Map rendering
+// Map rendering (supports nested subregions)
 function renderMap(prevalence) {
   if (!map) {
     map = L.map(mapContainer).setView([20, 0], 2);
@@ -107,13 +107,23 @@ function renderMap(prevalence) {
   fetch('maps/world.geojson')
     .then(res => res.json())
     .then(geojson => {
-      // Color countries by prevalence
+
       geoLayer = L.geoJSON(geojson, {
         style: feature => {
           const country = feature.properties.NAME || feature.properties.ADMIN;
-          let value = prevalence[country] || 0;
+          let value = 0;
+
+          // Handle nested prevalence
+          if (prevalence[country]) {
+            if (typeof prevalence[country] === 'number') {
+              value = prevalence[country];
+            } else if (typeof prevalence[country] === 'object') {
+              value = Object.values(prevalence[country]).reduce((a,b)=>a+b,0);
+            }
+          }
+
           return {
-            fillColor: `rgba(58, 134, 255, ${Math.min(0.05 + value/20,0.8)})`,
+            fillColor: `rgba(58, 134, 255, ${Math.min(0.05 + value/20, 0.8)})`,
             weight: 1,
             color: '#666',
             fillOpacity: 0.6
@@ -121,8 +131,20 @@ function renderMap(prevalence) {
         },
         onEachFeature: (feature, layer) => {
           const country = feature.properties.NAME || feature.properties.ADMIN;
-          const value = prevalence[country] || 0;
-          layer.bindTooltip(`${country}: ${value}%`);
+          const countryData = prevalence[country];
+
+          if (!countryData) {
+            layer.bindTooltip(`${country}: 0%`);
+          } else if (typeof countryData === 'number') {
+            layer.bindTooltip(`${country}: ${countryData}%`);
+          } else {
+            // Nested subregions
+            let tooltipText = `${country}:\n`;
+            for (const sub in countryData) {
+              tooltipText += `  ${sub}: ${countryData[sub]}%\n`;
+            }
+            layer.bindTooltip(tooltipText);
+          }
         }
       }).addTo(map);
 
