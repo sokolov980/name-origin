@@ -1,20 +1,22 @@
 import usRegions from "../data/regions_us.json";
-import migrationRules from "../data/migration_rules.json";
+import migration from "../data/migration_rules.json";
 
-export function getRegions(name, lookup, rules) {
-  if (usRegions[name]) {
+export function getRegions(surname, origin) {
+  const key = `${origin}:${surname}`;
+
+  if (usRegions[key]) {
     return {
       source: "observed",
-      data: usRegions[name]
+      us: usRegions[key]
     };
   }
 
-  if (rules.origin && migrationRules[rules.origin]) {
+  if (migration[origin]?.US) {
     return {
       source: "estimated",
-      data: migrationRules[rules.origin]
+      us: migration[origin].US
     };
   }
 
-  return { source: "unknown", data: {} };
+  return { source: "unknown" };
 }
