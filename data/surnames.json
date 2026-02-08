@@ -1,0 +1,18 @@
+{
+  "kowalski": {
+    "origin": "Polish",
+    "meaning": "Occupational surname meaning 'smith'",
+    "regions": {
+      "PL": { "percentage": 0.62 },
+      "US": { "percentage": 0.28 }
+    }
+  },
+  "smith": {
+    "origin": "English",
+    "meaning": "Occupational surname meaning 'metal worker'",
+    "regions": {
+      "US": { "percentage": 0.71 },
+      "UK": { "percentage": 0.19 }
+    }
+  }
+}
