@@ -1,0 +1,21 @@
+{
+  "kowalski": {
+    "states": {
+      "IL": 0.21,
+      "MI": 0.18,
+      "WI": 0.12
+    },
+    "cities": {
+      "Chicago,IL": 0.09,
+      "Detroit,MI": 0.06,
+      "Milwaukee,WI": 0.04
+    }
+  },
+  "smith": {
+    "states": {
+      "TX": 0.14,
+      "CA": 0.13,
+      "FL": 0.11
+    }
+  }
+}
