@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Name Origin</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <main>
+    <h1>Name Origin Explorer</h1>
+
+    <div class="search">
+      <input id="surnameInput" placeholder="Enter a surname…" />
+      <button id="analyzeBtn">Analyze</button>
+    </div>
+
+    <div id="result" class="hidden">
+      <h2 id="surnameTitle"></h2>
+
+      <section>
+        <h3>Origin</h3>
+        <p id="originText"></p>
+      </section>
+
+      <section>
+        <h3>Regional Prevalence</h3>
+        <div id="regions"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
