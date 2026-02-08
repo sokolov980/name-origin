@@ -1,18 +1,22 @@
 {
-  "kowalski": {
-    "origin": "Polish",
-    "meaning": "Occupational surname meaning 'smith'",
-    "regions": {
-      "PL": { "percentage": 0.62 },
-      "US": { "percentage": 0.28 }
+  "PL": {
+    "kowalski": {
+      "meaning": "Occupational surname meaning 'smith'",
+      "variants": ["kowalczyk", "kowal"],
+      "regions": {
+        "PL": { "percentage": 0.62 },
+        "US": { "percentage": 0.28 }
+      }
     }
   },
-  "smith": {
-    "origin": "English",
-    "meaning": "Occupational surname meaning 'metal worker'",
-    "regions": {
-      "US": { "percentage": 0.71 },
-      "UK": { "percentage": 0.19 }
+  "GB": {
+    "smith": {
+      "meaning": "Occupational surname meaning 'metal worker'",
+      "variants": ["smyth"],
+      "regions": {
+        "US": { "percentage": 0.71 },
+        "GB": { "percentage": 0.19 }
+      }
     }
   }
 }
