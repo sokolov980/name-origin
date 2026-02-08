@@ -1,23 +1,14 @@
 import suffixRules from "../data/suffix_rules.json";
 
-export function applyRules(surname) {
-  const matches = [];
-
+export function applyRules(name) {
   for (const suffix in suffixRules) {
-    if (surname.endsWith(suffix)) {
-      matches.push({
-        type: "suffix",
-        suffix,
-        ...suffixRules[suffix]
-      });
+    if (name.endsWith(suffix)) {
+      return {
+        originHint: suffixRules[suffix].language,
+        type: suffixRules[suffix].type,
+        match: suffix
+      };
     }
   }
-
-  if (!matches.length) return {};
-
-  return {
-    origin: matches[0].language,
-    meaning: matches[0].type,
-    matches
-  };
+  return {};
 }
