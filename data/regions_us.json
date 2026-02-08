@@ -1,5 +1,5 @@
 {
-  "kowalski": {
+  "PL:kowalski": {
     "states": {
       "IL": 0.21,
       "MI": 0.18,
@@ -11,7 +11,7 @@
       "Milwaukee,WI": 0.04
     }
   },
-  "smith": {
+  "GB:smith": {
     "states": {
       "TX": 0.14,
       "CA": 0.13,
