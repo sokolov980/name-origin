@@ -2,16 +2,24 @@ body {
   font-family: system-ui, sans-serif;
   background: #fafafa;
   padding: 2rem;
+  color: #111;
 }
 
 main {
-  max-width: 720px;
+  max-width: 900px;
   margin: auto;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .search {
   display: flex;
   gap: 0.5rem;
+  margin-top: 1rem;
 }
 
 input {
@@ -37,4 +45,47 @@ section {
   border-left: 4px solid #333;
   padding-left: 1rem;
   margin-top: 1rem;
+}
+
+/* ---------- Map ---------- */
+
+#mapContainer {
+  position: relative;
+  max-width: 900px;
+}
+
+#tooltip {
+  position: absolute;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  pointer-events: none;
+  display: none;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* ---------- Dark Mode ---------- */
+
+body.dark {
+  background: #0f1117;
+  color: #e6e6e6;
+}
+
+body.dark .region {
+  border-color: #6aa3ff;
+}
+
+body.dark #tooltip {
+  background: rgba(240,240,240,0.9);
+  color: #111;
+}
+
+body.dark svg path {
+  fill: #2a2f3a !important;
+}
+
+body.dark .city-dot {
+  fill: #ffb347;
 }
