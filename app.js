@@ -6,6 +6,8 @@ async function loadData() {
   usRegions = await fetch("data/regions_us.json").then(r => r.json());
 }
 
+/* ------------------ Utilities ------------------ */
+
 function normalize(name) {
   return name.trim().toLowerCase();
 }
@@ -16,6 +18,8 @@ function getTopN(obj, n = 3) {
     .slice(0, n);
 }
 
+/* ------------------ Analysis ------------------ */
+
 function analyzeSurname(name) {
   const key = normalize(name);
   const record = surnames[key];
@@ -25,7 +29,8 @@ function analyzeSurname(name) {
       surname: name,
       origin: "Unknown",
       meaning: "No data available",
-      regions: {}
+      regions: {},
+      usDetail: null
     };
   }
 
@@ -34,9 +39,56 @@ function analyzeSurname(name) {
     origin: record.origin,
     meaning: record.meaning,
     regions: record.regions,
-    usDetail: usRegions[key]
+    usDetail: usRegions[key] || null
   };
 }
+
+/* ------------------ Map Logic ------------------ */
+
+function resetUSMap() {
+  const mapObj = document.getElementById("usMap");
+  const svg = mapObj.contentDocument;
+  if (!svg) return;
+
+  svg.querySelectorAll("path").forEach(p => {
+    p.style.fill = "#eee";
+  });
+}
+
+function colorUSMap(stateData) {
+  const mapObj = document.getElementById("usMap");
+  const tooltip = document.getElementById("tooltip");
+
+  const svg = mapObj.contentDocument;
+  if (!svg) return;
+
+  resetUSMap();
+
+  for (const [state, pct] of Object.entries(stateData)) {
+    const path = svg.getElementById(state);
+    if (!path) continue;
+
+    // Color intensity based on percentage
+    path.style.fill = `rgba(40, 90, 200, ${Math.min(0.85, pct + 0.2)})`;
+    path.style.cursor = "pointer";
+
+    path.onmouseenter = () => {
+      tooltip.style.display = "block";
+      tooltip.textContent = `${state}: ${(pct * 100).toFixed(1)}%`;
+    };
+
+    path.onmousemove = e => {
+      tooltip.style.left = e.pageX + 12 + "px";
+      tooltip.style.top = e.pageY + 12 + "px";
+    };
+
+    path.onmouseleave = () => {
+      tooltip.style.display = "none";
+    };
+  }
+}
+
+/* ------------------ Render ------------------ */
 
 function render(result) {
   document.getElementById("surnameTitle").textContent = result.surname;
@@ -52,19 +104,37 @@ function render(result) {
     div.innerHTML = `<strong>${country}</strong> — ${(data.percentage * 100).toFixed(1)}%`;
     regionsDiv.appendChild(div);
 
-    if (country === "US" && result.usDetail) {
-      if (result.usDetail.states) {
-        const ul = document.createElement("ul");
-        getTopN(result.usDetail.states).forEach(([state, pct]) => {
-          ul.innerHTML += `<li>${state} — ${(pct * 100).toFixed(1)}%</li>`;
-        });
-        div.appendChild(ul);
+    // US state breakdown
+    if (country === "US" && result.usDetail?.states) {
+      const ul = document.createElement("ul");
+      const topStates = getTopN(result.usDetail.states);
+
+      topStates.forEach(([state, pct]) => {
+        ul.innerHTML += `<li>${state} — ${(pct * 100).toFixed(1)}%</li>`;
+      });
+
+      div.appendChild(ul);
+
+      // Build map data (top 3 states)
+      const stateData = {};
+      topStates.forEach(([state, pct]) => {
+        stateData[state] = pct;
+      });
+
+      // Wait for SVG load if needed
+      const mapObj = document.getElementById("usMap");
+      if (mapObj.contentDocument) {
+        colorUSMap(stateData);
+      } else {
+        mapObj.addEventListener("load", () => colorUSMap(stateData), { once: true });
       }
     }
   }
 
   document.getElementById("result").classList.remove("hidden");
 }
+
+/* ------------------ Events ------------------ */
 
 document.getElementById("analyzeBtn").addEventListener("click", () => {
   const name = document.getElementById("surnameInput").value;
