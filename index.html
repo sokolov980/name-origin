@@ -8,7 +8,10 @@
 <body>
 
   <main>
-    <h1>Name Origin Explorer</h1>
+    <header class="top-bar">
+      <h1>Name Origin Explorer</h1>
+      <button id="themeToggle" title="Toggle dark mode">🌙</button>
+    </header>
 
     <div class="search">
       <input id="surnameInput" placeholder="Enter a surname…" />
@@ -28,35 +31,19 @@
         <div id="regions"></div>
       </section>
 
-      <!-- 🗺️ US MAP SECTION -->
       <section>
         <h3>US Distribution</h3>
 
-        <div id="mapContainer" style="position: relative; max-width: 900px;">
+        <div id="mapContainer">
           <object
             id="usMap"
             data="data/maps/us-states.svg"
-            type="image/svg+xml"
-            width="100%">
+            type="image/svg+xml">
           </object>
 
-          <div
-            id="tooltip"
-            style="
-              position: absolute;
-              background: rgba(0,0,0,0.75);
-              color: #fff;
-              padding: 6px 10px;
-              border-radius: 4px;
-              pointer-events: none;
-              display: none;
-              font-size: 0.85rem;
-              white-space: nowrap;
-            ">
-          </div>
+          <div id="tooltip"></div>
         </div>
       </section>
-
     </div>
   </main>
 
