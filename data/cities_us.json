@@ -1,9 +1,0 @@
-{
-  "Chicago,IL": { "lat": 41.8781, "lon": -87.6298 },
-  "Detroit,MI": { "lat": 42.3314, "lon": -83.0458 },
-  "Milwaukee,WI": { "lat": 43.0389, "lon": -87.9065 },
-
-  "Los Angeles,CA": { "lat": 34.0522, "lon": -118.2437 },
-  "Houston,TX": { "lat": 29.7604, "lon": -95.3698 },
-  "Miami,FL": { "lat": 25.7617, "lon": -80.1918 }
-}
